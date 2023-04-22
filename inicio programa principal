@@ -1,0 +1,278 @@
+package pooCRUDListas;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class listapelicula {
+
+	private ArrayList<objetopelicula> hollywood;
+
+	public listapelicula() {
+		this.hollywood = new ArrayList<objetopelicula>();
+
+	}
+
+	public void anadirPelicula() {
+
+		Scanner entrada = new Scanner(System.in);
+
+		System.out.print("Ingrese el título de la película: ");
+		String titulo = entrada.nextLine();
+		System.out.print("Ingrese el género de la película: ");
+		String genero = entrada.nextLine();
+		System.out.print("Ingrese el año de la película: ");
+		int anio = entrada.nextInt();
+		objetopelicula nuevapelicula = new objetopelicula(titulo, genero, anio);
+		hollywood.add(nuevapelicula);
+		System.out.println("La película ha sido añadida exitosamente.");
+
+		System.out.println("La lista hollywood contiene actualmente " + hollywood.size() + " película/s");
+	}
+
+	public void modificarPelicula() {
+
+		Scanner entrada = new Scanner(System.in);
+
+		System.out.print("Ingrese el título de la película a modificar: ");
+		String tituloPelicula = entrada.nextLine();
+		int indicePelicula = -1;
+		objetopelicula peliculaEncontrada = buscadorpeliculas(hollywood, tituloPelicula);
+
+		if (peliculaEncontrada != null) {
+
+			objetopelicula peliculaModificada = new objetopelicula(tituloPelicula, tituloPelicula, 0);
+			System.out.println("Introduce el nuevo título de la película:");
+			peliculaModificada.setTitulo(entrada.nextLine());
+
+			System.out.println("Introduce el nuevo género de la película:");
+			peliculaModificada.setGenero(entrada.nextLine());
+
+			System.out.println("Introduce el nuevo año de la película:");
+			peliculaModificada.setAno(entrada.nextInt());
+			entrada.nextLine();
+
+			indicePelicula = hollywood.indexOf(peliculaEncontrada);
+			hollywood.set(indicePelicula, peliculaModificada);
+			System.out.println("La película se ha modificado correctamente.");
+		}
+	}
+
+	public void borrarPelicula() {
+		Scanner entrada = new Scanner(System.in);
+
+		System.out.print("Ingrese el título de la película a eliminar: ");
+		String tituloPelicula = entrada.nextLine();
+		objetopelicula peliculaEncontrada = buscadorpeliculas(hollywood, tituloPelicula);
+
+		if (peliculaEncontrada != null) {
+			hollywood.remove(peliculaEncontrada);
+			System.out.println("La película ha sido eliminada correctamente.");
+		} else {
+			System.out.println("La película no ha sido encontrada en la lista.");
+		}
+	}
+
+	public void buscarPelicula() {
+		Scanner entrada = new Scanner(System.in);
+		System.out.print("Ingrese el título de la película a buscar: ");
+		String tituloPelicula = entrada.nextLine();
+
+		objetopelicula peliculaEncontrada = buscadorpeliculas(hollywood, tituloPelicula);
+
+		if (peliculaEncontrada != null) {
+			System.out.println("Título: " + peliculaEncontrada.getTitulo());
+			System.out.println("Género: " + peliculaEncontrada.getGenero());
+			System.out.println("Año: " + peliculaEncontrada.getAno());
+		} else {
+			System.out.println("La película no se encontró en la lista.");
+		}
+
+	}
+
+	public void mostrarPeliculas() {
+		System.out.println("Listado de películas:");
+		for (objetopelicula pelicula : hollywood) {
+			System.out.println("Título: " + pelicula.getTitulo());
+			System.out.println("Género: " + pelicula.getGenero());
+			System.out.println("Año: " + pelicula.getAno());
+			System.out.println(pelicula.toString());
+
+			System.out.println(hollywood.size());
+		}
+
+	}
+
+	private objetopelicula buscadorpeliculas(ArrayList<objetopelicula> hollywood, String tituloPelicula) {
+		// TODO Auto-generated method stub
+		for (objetopelicula pelicula : hollywood) {
+			if (pelicula.getTitulo().equalsIgnoreCase(tituloPelicula)) {
+				return pelicula;
+			}
+		}
+		return null;
+	}
+}
+
+package pooCRUDListas;
+
+/**
+ * Clase que recoge el OBJETO pelicula, compuesta por título, género y año de
+ * estreno.
+ * 
+ * @author Francisco Miguez
+ * @version 1.3
+ */
+public class objetopelicula {
+
+	// Atributos de la pelicula.
+	private String titulo;
+	private String genero;
+	private int ano;
+
+	/**
+	 * Constructor de la clase "objetopelicula".
+	 * 
+	 * @param titulo El título de la película.
+	 * @param genero El género de la película.
+	 * @param ano    El año de estreno de la película.
+	 */
+	public objetopelicula(String titulo, String genero, int ano) {
+		super();
+		this.titulo = titulo;
+		this.genero = genero;
+		this.ano = ano;
+	}
+
+	/**
+	 * Método getter. Devuelve el título de la película.
+	 * 
+	 * @return El título de la película.
+	 */
+	public String getTitulo() {
+		return titulo;
+	}
+
+	/**
+	 * Método setter. Establece título de la película.
+	 * 
+	 * @param titulo El título de la película.
+	 */
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	/**
+	 * Método getter.Devuelve el género de la película.
+	 * 
+	 * @return El género de la película.
+	 */
+	public String getGenero() {
+		return genero;
+	}
+
+	/**
+	 * Método setter.Establece el género de la película.
+	 * 
+	 * @param genero El género de la película.
+	 */
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+	/**
+	 * Método getter.Devuelve el año de estreno de la película.
+	 * 
+	 * @return El año de estreno de la película.
+	 */
+	public int getAno() {
+		return ano;
+	}
+
+	/**
+	 * Método setter.Establece el año de estreno de la película.
+	 * 
+	 * @param ano El año de estreno de la película.
+	 */
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
+
+	/**
+	 * Devuelve una cadena de caracteres del objeto película.
+	 * 
+	 * @return Una cadena de caracteres del objeto película.
+	 */
+	@Override
+	public String toString() {
+		return "objetopelicula [titulo=" + titulo + ", genero=" + genero + ", ano=" + ano + "]";
+	}
+
+}
+
+package pooCRUDListas;
+
+import java.util.Scanner;
+
+/**
+ * Clase que contiene metodo principal para ejecutar el programa.
+ * @author Francisco Miguez.
+ * @version 1.6
+ */
+public class controladorpelicula {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		
+		Scanner entrada = new Scanner(System.in);
+		listapelicula peliculas = new listapelicula();
+		int opción = 0;
+		do {
+			// Mestra el menú al usuario.
+			System.out.println("********** MENU LA CLAQUETA **********");
+			System.out.println("1. Añadir película");
+			System.out.println("2. Modificar película");
+			System.out.println("3. Borrar película");
+			System.out.println("4. Buscar película por título");
+			System.out.println("5. Mostrar coleción");
+			System.out.println("6. Salir");
+			System.out.print("Seleccione una opción del MENU: ");
+			// Recoge la opción del usuario.
+			opción = entrada.nextInt();
+			entrada.nextLine();
+			 // Se utiliza condicional switch para ejecutar la opción correspondiente.
+			switch (opción) {
+			case 1:
+				peliculas.anadirPelicula();
+				break;
+			case 2:
+		peliculas.modificarPelicula();
+				break;
+			case 3:
+				peliculas.borrarPelicula();
+				break;
+			case 4:
+				peliculas.buscarPelicula();
+				break;
+		case 5:
+				peliculas.mostrarPeliculas();
+				break;
+			case 6:
+				// Gestiona la opción de salir del programa.
+				System.out.println("Sayonara Baby");
+				break;
+
+			default:
+				// Si no está recogido dentro de las opciones del menú, pide al usuario que
+				// elija una de las opciones.
+				System.out.println("Por favor, elija una opción del MENU");
+				break;
+
+			}
+
+		} while (opción != 6);
+		 // Cierra Scanner
+		entrada.close();
+	}
+
+}
