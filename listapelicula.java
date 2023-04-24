@@ -53,6 +53,7 @@ public class listapelicula {
 		System.out.println("La película ha sido añadida exitosamente.");
 
 		System.out.println("La lista hollywood contiene actualmente " + hollywood.size() + " película/s.");
+		
 	}
 
 	/**
@@ -133,6 +134,7 @@ public class listapelicula {
 		}
 
 	}
+	
 
 	/**
 	 * Método para mostrar las películas almacenadas en una lista.
@@ -169,4 +171,6 @@ public class listapelicula {
 		}
 		return null;
 	}
+
 }
+
